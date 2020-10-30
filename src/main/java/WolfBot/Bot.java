@@ -16,7 +16,7 @@ public class Bot {
         try {
             System.out.println(BOT_TOKEN);
             JDA jda = JDABuilder.createDefault(BOT_TOKEN).build();
-            jda.addEventListener(new MessageListener());
+            jda.addEventListener(new MessageListener(this));
         } catch (LoginException e) {
             log(e.getMessage());
         }
