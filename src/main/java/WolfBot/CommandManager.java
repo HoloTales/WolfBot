@@ -4,23 +4,28 @@ import WolfBot.Commands.Command;
 import WolfBot.Commands.Flip;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CommandManager {
-    private final Bot bot;
+    private final WolfBot wolfBot;
     private Map<String, Command> map;
 
-    CommandManager(Bot bot) {
-        this.bot = bot;
+    CommandManager(WolfBot wolfBot) {
+        this.wolfBot = wolfBot;
         map = new HashMap<>();
         initialize(map,
-                new Flip(bot));
+                new Flip(wolfBot));
     }
 
     private void initialize(Map<String, Command> map, Command... commands) {
         for (Command c: commands) {
-            map.put(c.getName(), c);
+            List<String> names = c.getName();
+            for (String name: names) {
+                map.put(name, c);
+            }
         }
+        System.out.println("Command Manager Initialized");
     }
 
     public Command getCommand(String s) {

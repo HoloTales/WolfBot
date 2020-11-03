@@ -1,22 +1,32 @@
 package WolfBot.Commands;
 
-import WolfBot.Bot;
-import net.dv8tion.jda.api.entities.Invite;
+import WolfBot.WolfBot;
 import net.dv8tion.jda.api.entities.Message;
 
-public abstract class Command {
-    protected final Bot bot;
-    protected String name;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-    //todo add support for more variations
-    public Command(Bot bot, String name) {
-        this.bot = bot;
-        this.name = name;
+public abstract class Command {
+    protected final WolfBot wolfBot;
+    protected List<String> name;
+
+    public Command(WolfBot wolfBot, String name) {
+        this.name = new ArrayList<>();
+        this.wolfBot = wolfBot;
+        this.name.add(name);
     }
 
-    public String getName() {
+    public Command(WolfBot wolfBot, String name, String... names) {
+        this.name = new ArrayList<>();
+        this.wolfBot = wolfBot;
+        this.name.add(name);
+        this.name.addAll(Arrays.asList(names));
+    }
+
+    public List<String> getName() {
         return name;
     }
 
-    public abstract void call(Message message);
+    public abstract void call(Message message, String[] args);
 }
