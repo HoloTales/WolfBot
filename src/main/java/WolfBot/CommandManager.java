@@ -29,6 +29,6 @@ public class CommandManager {
     }
 
     public Command getCommand(String s) {
-        return map.get(s);
+        return map.get(s.toLowerCase());
     }
 }
