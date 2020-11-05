@@ -1,6 +1,11 @@
 .idea/**
+
 build
+
 .gradle/**
+
 gradle
+
 config.txt
+
 build/**

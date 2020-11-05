@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.entities.MessageChannel;
 public class Flip extends Command {
     public Flip(WolfBot wolfBot) {
         super(wolfBot, "flipcoin", "fc", "flip", "coinflip", "coin", "cf");
+        help = "Flips a coin.";
     }
 
     private String flip() {
@@ -23,7 +24,6 @@ public class Flip extends Command {
 
     @Override
     public void call(Message message, String[] args) {
-        MessageChannel channel = message.getChannel();
-        channel.sendMessage(flip() + "!").queue();
+        send(message, flip() + "!");
     }
 }

@@ -1,6 +1,7 @@
 package WolfBot;
 
 import WolfBot.Commands.Command;
+import WolfBot.Commands.DirectHit;
 import WolfBot.Commands.Flip;
 
 import java.util.HashMap;
@@ -15,7 +16,8 @@ public class CommandManager {
         this.wolfBot = wolfBot;
         map = new HashMap<>();
         initialize(map,
-                new Flip(wolfBot));
+                new Flip(wolfBot),
+                new DirectHit(wolfBot));
     }
 
     private void initialize(Map<String, Command> map, Command... commands) {
