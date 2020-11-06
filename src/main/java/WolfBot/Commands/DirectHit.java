@@ -13,13 +13,14 @@ public class DirectHit extends Command {
     //todo check if is a valid int
     //todo level, sub
     //todo level, div
-    private double calculateDh(String value) {
-        double entry = Double.parseDouble(value);
-        double end = (550*(entry-380)/3300)/10;
+    private double calculateDh(int dhValue, Integer lvValue) {
+        double directHit = Double.parseDouble(String.valueOf(dhValue));
+        double end = (55*(directHit-380)/3300);
         return end;
     }
     @Override
     public void call(Message message, String[] args) {
+        Integer dhValue =
         double end = calculateDh(args[0]);
         send(message, "Probability = " + end);
     }

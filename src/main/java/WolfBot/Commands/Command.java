@@ -4,9 +4,7 @@ import WolfBot.WolfBot;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public abstract class Command {
     protected final WolfBot wolfBot;
@@ -35,5 +33,24 @@ public abstract class Command {
     protected void send(Message origination, String sendMessage) {
         MessageChannel channel = origination.getChannel();
         channel.sendMessage(sendMessage).queue();
+    }
+
+    protected Map<String, String> splitArgs(String[] args) {
+        HashMap<String, String> hashMap = new HashMap<>();
+        for (String s: args) {
+            if (s.contains(":")) {
+                String[] split = s.split(":");
+                if (split.length > 2) {
+                    throw new IllegalArgumentException("SUn?");
+                } else {
+                    hashMap.put(split[0], split[1]);
+                }
+            } else {
+                if (!hashMap.containsKey("none")) {
+                    hashMap.put("none", s);
+                }
+            }
+        }
+        return hashMap;
     }
 }

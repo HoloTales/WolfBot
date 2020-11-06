@@ -1,6 +1,7 @@
 package WolfBot;
 
 import Util.ConfigReader;
+import Util.ModsUtil;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 
@@ -8,8 +9,9 @@ import javax.security.auth.login.LoginException;
 
 public class WolfBot {
     //Logger logger;
-    public final JDA jda;
+    private final JDA jda;
     public final ConfigReader config = new ConfigReader("config.txt");
+    public final ModsUtil modsUtil = new ModsUtil();
 
 
     public static void main(String[] args) {
