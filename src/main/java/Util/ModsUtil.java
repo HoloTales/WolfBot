@@ -16,10 +16,11 @@ public class ModsUtil {
         levelModsList = new ArrayList<>();
         levelModsHashMap = new HashMap<>();
         generateLevelMods(levelModsList);
+        System.out.println("Mods Util Initialized.");
     }
 
     public int getLevelSub(int level) {
-        LevelMods levelMods = levelModsHashMap.get(80);
+        LevelMods levelMods = levelModsHashMap.get(level);
         return levelMods.getSub();
     }
 
@@ -46,4 +47,11 @@ public class ModsUtil {
     }
 
 
+    public Integer getMaxLevel() {
+        return 80;
+    }
+
+    public Integer getMinLevel() {
+        return 1;
+    }
 }

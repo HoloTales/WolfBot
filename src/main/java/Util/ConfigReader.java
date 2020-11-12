@@ -25,6 +25,7 @@ public class ConfigReader {
                 String line2 = splitLine[1].replace("\"", "");
                 hashmap.put(splitLine[0], line2);
             }
+            System.out.println("Config Reader Initialized.");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

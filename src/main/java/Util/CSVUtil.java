@@ -7,7 +7,6 @@ import java.util.*;
 public class CSVUtil {
     public static List<HashMap<String, String>> getHashList(File file) throws FileNotFoundException {
         return hashWrapper(importCSV(file));
-
     }
 
     private static List<HashMap<String, String>> hashWrapper(List<String[]> stringList) {

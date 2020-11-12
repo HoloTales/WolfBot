@@ -25,12 +25,13 @@ public class WolfBot {
 
     WolfBot(String[] args) throws LoginException{
         this.config = new ConfigReader("config.txt");
-        this.modsUtil = new ModsUtil();
-        this.parametersCalc = new ParametersCalc(modsUtil);
         String BOT_TOKEN = config.get("token");
         jda = JDABuilder.createDefault(BOT_TOKEN).build();
         jda.addEventListener(new MessageListener(this));
+        this.modsUtil = new ModsUtil();
+        this.parametersCalc = new ParametersCalc(modsUtil);
     }
+
     public void log(String message) {
         System.out.println(message);
     }

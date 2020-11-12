@@ -5,6 +5,7 @@ public class ParametersCalc {
 
     public ParametersCalc(ModsUtil modUtil) {
         this.modUtil = modUtil;
+        System.out.println("Parameters Calculator Initialized.");
     }
 
     public double calculateDhr(int dhValue, Integer lvValue) {
