@@ -1,6 +1,8 @@
 package Util.ModsHolder;
 
-public class LevelMods {
+import java.util.HashMap;
+
+public class LevelMods extends Mods {
     private final int level;
     private final int mp;
     private final int main;
@@ -10,16 +12,17 @@ public class LevelMods {
     private final int elmt;
     private final int threat;
 
-    public LevelMods(int level, int mp, int main, int sub, int div, int hp, int elmt, int threat) {
-        this.level = level;
-        this.mp = mp;
-        this.main = main;
-        this.sub = sub;
-        this.div = div;
-        this.hp = hp;
-        this.elmt = elmt;
-        this.threat = threat;
+    public LevelMods(HashMap<String, String> hashMap) throws NumberFormatException {
+        this.level = parseInt(hashMap.get("LV"));
+        this.mp = parseInt(hashMap.get("MP"));
+        this.main = parseInt(hashMap.get("MAIN"));
+        this.sub = parseInt(hashMap.get("SUB"));
+        this.div = parseInt(hashMap.get("DIV"));
+        this.hp = parseInt(hashMap.get("HP"));
+        this.elmt = parseInt(hashMap.get("ELMT"));
+        this.threat = parseInt(hashMap.get("THREAT"));
     }
+
 
     public int getLevel() {
         return level;
