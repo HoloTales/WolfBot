@@ -25,6 +25,11 @@ public class Generate extends Command {
         }
     }
 
+    @Override
+    protected void createHelp() {
+
+    }
+
     private boolean generateSave(String string) {
         return false;
     }

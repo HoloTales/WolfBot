@@ -10,6 +10,11 @@ public class Flip extends Command {
         help = "Flips a coin.";
     }
 
+    @Override
+    protected void createHelp() {
+        //
+    }
+
     private String flip() {
         long i = Math.round(Math.random());
         if (i == 0) {

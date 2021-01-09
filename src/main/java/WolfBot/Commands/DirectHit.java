@@ -3,10 +3,35 @@ package WolfBot.Commands;
 import WolfBot.WolfBot;
 import net.dv8tion.jda.api.entities.Message;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class DirectHit extends Command {
+    String[] levelAlias = new String[] {"lv", "lvl", "l"};
+
     public DirectHit(WolfBot wolfBot) {
-        super(wolfBot, "directhitrate", "dhr");
-        help = "Calculates direct hit.\n";
+        super(wolfBot, "directhitrate", "dhr", "dh", "directhit");
+        description = "Calculates Direct Hit Rate";
+        createHelp();
+    }
+
+    @Override
+    protected void createHelp() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(description);
+        stringBuilder.append("\n");
+        stringBuilder.append("Alias' for this command: ");
+        for (String s: name) {
+            stringBuilder.append(s);
+        }
+
+        stringBuilder.append("\nHow to use:\n");
+        //todo prefix
+        stringBuilder.append(">dhr [direct hit] (level)");
+        stringBuilder.append("\nPolymorphic Parameters:\n");
+        stringBuilder.append("DH:[direct hit]  LVL:[level]");
+
+
     }
 
     //https://allaganstudies.akhmorning.com/guide/parameters/
@@ -17,38 +42,65 @@ public class DirectHit extends Command {
     //todo certain args (ex. LV:60 DH:1200)
     @Override
     public void call(Message message, String[] args) {
-        Integer dhValue;
-        Integer level = 80;
+        if (args.length < 1) return;
+        Integer dhValue = -1;
+        Integer level = -1;
         String messageStr = "";
-        try {
-            dhValue = Integer.parseInt(args[0]);
-        } catch (NumberFormatException e) {
-            messageStr = "Invalid Direct Hit Value.";
-            send(message, messageStr);
-            return;
-        }
-        if (args.length > 1) {
-            try {
-                level = Integer.parseInt(args[1]);
-            } catch (NumberFormatException e) {
-                messageStr = "Invalid Level Value.";
-                send(message, messageStr);
-                return;
+        Map<String, String> argMap = splitArgs(args);
+
+        String[] levelAlias = new String[] {"lv", "lvl", "l"};
+        String[] dhAlias = new String[] {"dh"};
+
+        if (argMap.containsKey("none")) {
+            //if no args are special formatted, go to normal format
+            //if another arg exists try that
+            if (args.length > 1) {
+                try {
+                    dhValue = Integer.parseInt(args[1]);
+                } catch (NumberFormatException e) {
+                    messageStr = "Invalid Direct Hit Value.";
+                    send(message, messageStr);
+                    return;
+                }
+                //if no more args exist then its just 80 as it is max level
+            } else {
+                level = 80;
             }
-        }
-        if (level > wolfBot.modsUtil.getMaxLevel() || level < wolfBot.modsUtil.getMinLevel()) {
-            messageStr = "Level is Out of Range: " + level +".\n" +
-                    "Range is above " + wolfBot.modsUtil.getMinLevel() + " and below " + wolfBot.modsUtil.getMaxLevel();
-            send(message, messageStr);
-            return;
-        }
-        if (dhValue < wolfBot.modsUtil.getLevelSub(level)) {
-            messageStr = "Direct Hit Value Out of Range for Level " + level +".\n" +
-                    "Range is above " + wolfBot.modsUtil.getLevelSub(level);
-            send(message, messageStr);
-            return;
+            //dh solver
+            for (String s: dhAlias) {
+                if (argMap.containsKey(s) && dhValue == -1) {
+                    dhValue = Integer.parseInt(argMap.get(s));
+                } else if (argMap.containsKey(s) && dhValue != -1) {
+                    //error here
+                }
+            }
+        } else {
+            //if args exist then do special formatting
+            String levelAliass = aliasReader(levelAlias, argMap);
+            if (levelAliass != null) {
+                try {
+                    level = Integer.parseInt(levelAliass);
+                } catch (NumberFormatException e) {
+                    //todo error goes here
+                }
+            } else {
+                level = 80;
+            }
+
+            String dh = aliasReader(dhAlias, argMap);
+            if (dh != null) {
+                try {
+                    dhValue = Integer.parseInt(dh);
+                } catch (NumberFormatException e) {
+                    //todo error goes here
+                }
+            } else {
+                //todo error goes here
+            }
+
         }
         double end = calculateDhr(dhValue, level);
-        send(message, "Probability of Direct Hit= " + end + "%");
+        send(message, "Level: " + level + ". Direct Hit: " + dhValue + ".\n" +
+                "Direct Hit Probability: " + end + "%");
     }
 }

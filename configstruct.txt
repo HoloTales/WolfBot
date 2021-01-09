@@ -1,2 +1,3 @@
 token="token"
 prefix="^!!!" see pattern class (java)
+randomapi="" use random.org to get an api

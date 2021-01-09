@@ -25,7 +25,7 @@ public class MessageListener extends ListenerAdapter {
         if (event.getAuthor().isBot() || event.getAuthor().getId().equals(wolfBot.jda.getSelfUser().getId())) return;
 
         Message message = event.getMessage();
-        String messageString = message.getContentRaw();
+        String messageString = message.getContentRaw().toLowerCase();
         Matcher matcher = prefix.matcher(messageString);
         if(!matcher.find()) return;
         messageString = matcher.replaceFirst("");

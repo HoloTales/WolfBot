@@ -12,7 +12,19 @@ public class ParametersCalc {
         double directHit = (double)dhValue;
         double levelSub = modUtil.getLevelSub(lvValue);
         double levelDiv = modUtil.getLevelDiv(lvValue);
-        double dhr = (55*(directHit-levelSub)/levelDiv);
+        double dhr = Math.floor(550*(directHit-levelSub)/levelDiv)/10;
         return dhr;
+    }
+
+    public double calculateChr(int critValue, Integer lvValue) {
+        double criticalHit = (double)critValue;
+        double levelSub = modUtil.getLevelSub(lvValue);
+        double levelDiv = modUtil.getLevelDiv(lvValue);
+        double chr = Math.floor((200*(criticalHit)-levelSub)/(levelDiv+50))/10;
+        return chr;
+    }
+
+    public double detMod(int detValue, Integer lvValue) {
+        return 0.00;
     }
 }

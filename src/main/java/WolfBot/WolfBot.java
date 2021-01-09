@@ -3,6 +3,7 @@ package WolfBot;
 import Util.ConfigReader;
 import Util.ModsUtil;
 import Util.ParametersCalc;
+import Util.RandomClient;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 
@@ -14,11 +15,13 @@ public class WolfBot {
     public final ConfigReader config;
     public final ModsUtil modsUtil;
     public final ParametersCalc parametersCalc;
+    public final RandomClient randomClient;
 
     public static void main(String[] args) {
         try {
             WolfBot wolfBot = new WolfBot(args);
         } catch (Exception e) {
+            System.out.println(e);
             System.out.println("guess i'll crash \\-.-/");
         }
     }
@@ -30,6 +33,8 @@ public class WolfBot {
         jda.addEventListener(new MessageListener(this));
         this.modsUtil = new ModsUtil();
         this.parametersCalc = new ParametersCalc(modsUtil);
+        this.randomClient = new RandomClient(config.get("randomapi"));
+        randomClient.generateTeamInts();
     }
 
     public void log(String message) {
