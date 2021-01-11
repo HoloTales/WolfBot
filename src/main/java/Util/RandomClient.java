@@ -7,6 +7,11 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 
@@ -20,27 +25,51 @@ public class RandomClient {
         //https://github.com/stleary/JSON-java
         //https://api.random.org/json-rpc/2/basic
         //https://api.random.org/json-rpc/2/request-builder
-        HttpClient client = HttpClient.newHttpClient();
+        client = HttpClient.newHttpClient();
     }
 
-    public Integer[] generateTeamInts() {
+    public int[] generateTeamInts() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        paramsMap.put("n", 10);
+        paramsMap.put("min", 0);
+        paramsMap.put("max", 9);
+        paramsMap.put("replacement", false);
+        paramsMap.put("base", 10);
+
+        String request = createRequest(paramsMap, "generateIntegers");
+        String response = send(request);
+        JSONObject jsonObject = new JSONObject(response);
+
+        if (!jsonObject.has("error")) {
+            try {
+                String integers = jsonObject.getJSONObject("result").getJSONObject("random").get("data").toString();
+                String[] numberStrs = integers.replace("[", "").replace("]", "").split(",");
+                int[] numbers = new int[numberStrs.length];
+                for (int i = 0; i < numberStrs.length; i++) {
+                    numbers[i] = Integer.parseInt(numberStrs[i]);
+                }
+                return numbers;
+            } catch (JSONException e) {
+                //errors
+            }
+        } else {
+            //error goes here
+        }
         return null;
 
-
-        /*JsonR
-        String s = rpcClient.createRequest()
-                .method("generateIntegers")
-                .param("n", Integer.toString(10))
-                .param("min", Integer.toString(0))
-                .param("max", Integer.toString(9))
-                .param("replacement", false)
-                .param("apiKey", apiKey)
-                .param("base", "10")
-                .returnAs(String.class)
-                .id(0).;
-        System.out.println(s);
-        return null;*/
     };
+
+    private String createRequest(Map<String, Object> paramsMap, String method) {
+        JSONObject json = new JSONObject();
+        json.put("jsonrpc", "2.0");
+        paramsMap.put("apiKey", apiKey);
+        json.put("method", method);
+        json.put("params", paramsMap);
+        json.put("id", "999");
+
+        String ret = json.toString();
+        return ret;
+    }
 
     private String send(String request) {
         HttpRequest httpRequest = HttpRequest.newBuilder()
