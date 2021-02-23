@@ -1,0 +1,8 @@
+This project is a personal discord bot for the purpose of testing and implementing FFXIV-based and other discord-based features.
+
+This project is not meant to be used elsewhere but if there is a desire to, as the license states, you are free to use it anywhere.
+
+The dependencies are built with gradle and only require the JDA library and Gradle Library.
+Currently the java version required is 11.x due to it's support of a in built HTTP client.
+This may be changed in the future as builds become more common, but for now this will be the standard.
+Do note that this program contacts external hosts such as discord and random.org.
