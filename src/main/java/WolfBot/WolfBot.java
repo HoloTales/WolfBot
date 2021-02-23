@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.JDABuilder;
 
 import javax.security.auth.login.LoginException;
 import java.util.Arrays;
+import java.util.regex.Pattern;
 
 public class WolfBot {
     //Logger logger;
@@ -35,7 +36,7 @@ public class WolfBot {
         this.modsUtil = new ModsUtil();
         this.parametersCalc = new ParametersCalc(modsUtil);
         this.randomClient = new RandomClient(config.get("randomapi"));
-        System.out.println(Arrays.toString(randomClient.generateTeamInts()));
+        //System.out.println(Arrays.toString(randomClient.generateTeamInts()));
     }
 
     public void log(String message) {

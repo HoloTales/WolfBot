@@ -10,27 +10,20 @@ public class DirectHit extends Command {
     String[] levelAlias = new String[] {"lv", "lvl", "l"};
 
     public DirectHit(WolfBot wolfBot) {
-        super(wolfBot, "directhitrate", "dhr", "dh", "directhit");
-        description = "Calculates Direct Hit Rate";
+        super(wolfBot, "dhr", "Calculates Direct Hit Rate", "directhitrate", "dh", "directhit");
         createHelp();
     }
 
     @Override
     protected void createHelp() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(description);
-        stringBuilder.append("\n");
-        stringBuilder.append("Alias' for this command: ");
-        for (String s: name) {
-            stringBuilder.append(s);
-        }
 
-        stringBuilder.append("\nHow to use:\n");
         //todo prefix
+        stringBuilder.append("Basic Params:\n");
         stringBuilder.append(">dhr [direct hit] (level)");
         stringBuilder.append("\nPolymorphic Parameters:\n");
-        stringBuilder.append("DH:[direct hit]  LVL:[level]");
-
+        stringBuilder.append("DH:[direct hit]  [LVL/L/lv]:[level]");
+        help = stringBuilder.toString();
 
     }
 
@@ -53,10 +46,11 @@ public class DirectHit extends Command {
 
         if (argMap.containsKey("none")) {
             //if no args are special formatted, go to normal format
-            //if another arg exists try that
+            //level solver
             if (args.length > 1) {
                 try {
-                    dhValue = Integer.parseInt(args[1]);
+                    level = Integer.parseInt(args[1]);
+                    System.out.println(level);
                 } catch (NumberFormatException e) {
                     messageStr = "Invalid Direct Hit Value.";
                     send(message, messageStr);
@@ -67,12 +61,14 @@ public class DirectHit extends Command {
                 level = 80;
             }
             //dh solver
-            for (String s: dhAlias) {
-                if (argMap.containsKey(s) && dhValue == -1) {
-                    dhValue = Integer.parseInt(argMap.get(s));
-                } else if (argMap.containsKey(s) && dhValue != -1) {
-                    //error here
-                }
+            try {
+                dhValue = Integer.parseInt(args[0]);
+                System.out.println(dhValue);
+            } catch (NumberFormatException e) {
+                //todo add some more checks
+                messageStr = "Invalid Direct Hit Value.";
+                send(message, messageStr);
+                return;
             }
         } else {
             //if args exist then do special formatting

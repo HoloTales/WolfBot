@@ -12,16 +12,15 @@ public abstract class Command {
     protected String help;
     protected String description;
 
-    public Command(WolfBot wolfBot, String name) {
+    public Command(WolfBot wolfBot, String name, String description) {
         this.name = new ArrayList<>();
         this.wolfBot = wolfBot;
         this.name.add(name);
+        this.description = description;
     }
 
-    public Command(WolfBot wolfBot, String name, String... names) {
-        this.name = new ArrayList<>();
-        this.wolfBot = wolfBot;
-        this.name.add(name);
+    public Command(WolfBot wolfBot, String name, String description, String... names) {
+        this(wolfBot, name, description);
         this.name.addAll(Arrays.asList(names));
     }
 

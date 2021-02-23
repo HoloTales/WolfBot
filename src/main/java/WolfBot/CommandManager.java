@@ -3,31 +3,38 @@ package WolfBot;
 import WolfBot.Commands.Command;
 import WolfBot.Commands.DirectHit;
 import WolfBot.Commands.Flip;
+import WolfBot.Commands.Help;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CommandManager {
     private final WolfBot wolfBot;
     private Map<String, Command> map;
+    private List<Command> list;
 
     CommandManager(WolfBot wolfBot) {
         this.wolfBot = wolfBot;
         map = new HashMap<>();
-        initialize(map,
+        list = new LinkedList<>();
+        initialize(
+                new Help(wolfBot, this),
                 new Flip(wolfBot),
                 new DirectHit(wolfBot));
     }
 
-    private void initialize(Map<String, Command> map, Command... commands) {
+    private void initialize(Command... commands) {
         for (Command c: commands) {
+            list.add(c);
             List<String> names = c.getName();
             for (String name: names) {
-                map.put(name, c);
+                map.put(name.toLowerCase(), c);
             }
         }
         System.out.println("Command Manager Initialized");
+    }
+
+    public List<Command> getCommands() {
+        return list;
     }
 
     public Command getCommand(String s) {

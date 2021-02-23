@@ -6,7 +6,7 @@ import net.dv8tion.jda.api.entities.MessageChannel;
 
 public class Generate extends Command {
     public Generate(WolfBot wolfBot) {
-        super(wolfBot, "generate");
+        super(wolfBot, "generate", "generates some string");
     }
 
     @Override

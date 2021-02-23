@@ -17,7 +17,8 @@ import org.json.JSONObject;
 
 public class RandomClient {
     private final String apiKey;
-    HttpClient client = HttpClient.newHttpClient();
+    private static int id = 1;
+    HttpClient client;
 
 
     public RandomClient(String api) {
@@ -65,7 +66,7 @@ public class RandomClient {
         paramsMap.put("apiKey", apiKey);
         json.put("method", method);
         json.put("params", paramsMap);
-        json.put("id", "999");
+        json.put("id", id++);
 
         String ret = json.toString();
         return ret;
