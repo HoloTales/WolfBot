@@ -28,6 +28,12 @@ public class Teams extends Command {
 
     @Override
     protected void createHelp() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        //todo prefix
+        stringBuilder.append("Basic Params:\n");
+        stringBuilder.append(">>teams [name1] [name2] [name3] [name4] [name5] [name6] [name7] [name8] [name9] [name10]\n");
+        help = stringBuilder.toString();
 
     }
 }

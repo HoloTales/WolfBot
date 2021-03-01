@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.entities.Message;
 public class Help extends Command {
     private CommandManager manager;
     public Help(WolfBot wolfBot, CommandManager manager) {
-        super(wolfBot, "Help", "Gets Help About Bot");
+        super(wolfBot, "Help", "Gets Help About Bot.");
         this.manager = manager;
         createHelp();
     }
@@ -26,7 +26,7 @@ public class Help extends Command {
             if (curr == null) {
                 helpMessage.append("Error: No command found");
             } else {
-                helpMessage.append("Command: ").append(curr.getName().get(0)).append(".\n");
+                helpMessage.append("Command: ").append(curr.getName().get(0)).append("\n");
                 helpMessage.append("Description: ").append(description);
                 helpMessage.append("\n");
                 helpMessage.append("Alias': ");

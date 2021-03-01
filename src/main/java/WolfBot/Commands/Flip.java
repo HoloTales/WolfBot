@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.entities.MessageChannel;
 public class Flip extends Command {
     public Flip(WolfBot wolfBot) {
         super(wolfBot, "Flip", "Flips a Coin!", "fc", "flipcoin", "coinflip", "coin", "cf");
-        help = "Flips a coin.";
+        help = "Just do the command.";
     }
 
     @Override

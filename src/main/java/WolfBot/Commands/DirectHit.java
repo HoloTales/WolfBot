@@ -10,7 +10,7 @@ public class DirectHit extends Command {
     String[] levelAlias = new String[] {"lv", "lvl", "l"};
 
     public DirectHit(WolfBot wolfBot) {
-        super(wolfBot, "dhr", "Calculates Direct Hit Rate", "directhitrate", "dh", "directhit");
+        super(wolfBot, "dhr", "Calculates Direct Hit Rate.", "directhitrate", "dh", "directhit");
         createHelp();
     }
 
