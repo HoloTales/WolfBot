@@ -6,3 +6,6 @@ The dependencies are built with gradle and only require the JDA library and Grad
 Currently the java version required is 11.x due to it's support of a in built HTTP client.
 This may be changed in the future as builds become more common, but for now this will be the standard.
 Do note that this program contacts external hosts such as discord and random.org.
+
+To use this discord bot, clone the git and rename configstruct to config.txt. Get your bot ID token from Discord and (if desired) a random.org API key and use them to startup the bot.
+Requirements: Java 11, JDA, JSON

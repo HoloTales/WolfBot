@@ -1,9 +1,6 @@
 package WolfBot;
 
-import WolfBot.Commands.Command;
-import WolfBot.Commands.DirectHit;
-import WolfBot.Commands.Flip;
-import WolfBot.Commands.Help;
+import WolfBot.Commands.*;
 
 import java.util.*;
 
@@ -19,7 +16,8 @@ public class CommandManager {
         initialize(
                 new Help(wolfBot, this),
                 new Flip(wolfBot),
-                new DirectHit(wolfBot));
+                new DirectHit(wolfBot),
+                new Teams(wolfBot));
     }
 
     private void initialize(Command... commands) {
